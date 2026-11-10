@@ -113,4 +113,64 @@ export class Supabase {
   async addGynoLog(log: { date: string; fibroid_size_mm: number; fibroid_type: string; bleeding_intensity?: string; pain_level?: number; notes?: string }) {
     return await this.supabase.from('gyno_logs').insert([log]);
   }
+  async getMedicationsByDate(date: string) {
+  return await this.supabase
+    .from('daily_medications')
+    .select('*')
+    .eq('date', date)
+    .order('time', { ascending: true });
+}
+
+// Adicionar Medicamento
+async addMedication(med: { date: string; name: string; dosage?: string; time: string; taken: boolean }) {
+  return await this.supabase.from('daily_medications').insert([med]);
+}
+
+// Alternar Status (Tomado / Pendente)
+async updateMedicationStatus(id: string, taken: boolean) {
+  return await this.supabase.from('daily_medications').update({ taken }).eq('id', id);
+}
+
+// Excluir Medicamento
+async deleteMedication(id: string) {
+  return await this.supabase.from('daily_medications').delete().eq('id', id);
+}
+
+// Buscar Refeições por Data
+async getMealsByDate(date: string) {
+  return await this.supabase
+    .from('daily_meals')
+    .select('*')
+    .eq('date', date)
+    .order('time', { ascending: true });
+}
+
+// Upload da Foto do Prato para o Supabase Storage
+async uploadMealPhoto(file: File): Promise<string> {
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+  const filePath = `meals/${fileName}`;
+
+  const { error: uploadError } = await this.supabase.storage
+    .from('meal-photos')
+    .upload(filePath, file);
+
+  if (uploadError) throw uploadError;
+
+  const { data } = this.supabase.storage
+    .from('meal-photos')
+    .getPublicUrl(filePath);
+
+  return data.publicUrl;
+}
+
+// Adicionar Refeição
+async addMeal(meal: { date: string; meal_type: string; time: string; photo_url: string; notes?: string }) {
+  return await this.supabase.from('daily_meals').insert([meal]);
+}
+
+// Excluir Refeição
+async deleteMeal(id: string) {
+  return await this.supabase.from('daily_meals').delete().eq('id', id);
+}
 }

@@ -1,1 +1,140 @@
-<p>diario works!</p>
+<div class="page-container">
+    <!-- Topo com Seletor de Data -->
+    <div class="date-header cyber-card">
+        <div class="date-title">
+            <lucide-icon name="calendar" class="ui-icon"></lucide-icon>
+            <h2> {{ 'DIARY.TITLE' | translate }}</h2>
+        </div>
+        <input type="date" [value]="selectedDate()"
+            (input)="selectedDate.set($any($event.target).value); fetchDailyData()" class="date-input" />
+    </div>
+
+    <div class="diario-grid">
+        <!-- SEÇÃO 1: MEDICAMENTOS E SUPLEMENTOS -->
+        <section class="cyber-card med-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <lucide-icon name="pill" class="ui-icon pink-icon"></lucide-icon>
+                    <h3>{{ 'DIARY.MEDICATION' | translate }}</h3>
+                </div>
+            </div>
+
+            <!-- Formulário de adição (Proprietária) -->
+            @if (supabase.isOwner()) {
+            <form (ngSubmit)="onAddMedication()" class="quick-add-form">
+                <input type="text" placeholder="Nome (ex: Vitamina D)" [value]="medName()"
+                    (input)="medName.set($any($event.target).value)" required />
+
+                <input type="text" placeholder="Dose (ex: 2000 UI)" [value]="medDosage()"
+                    (input)="medDosage.set($any($event.target).value)" />
+
+                <input type="time" [value]="medTime()" (input)="medTime.set($any($event.target).value)" required />
+
+                <button type="submit" class="btn-icon-add" [disabled]="isSavingMed()">
+                    <lucide-icon name="plus" class="ui-icon"></lucide-icon>
+                </button>
+            </form>
+            }
+
+            <!-- Lista de Medicamentos -->
+            <div class="med-list">
+                @for (med of medications(); track med.id) {
+                <div class="med-item" [class.taken]="med.taken" (click)="toggleMedication(med)">
+                    <div class="med-status">
+                        <lucide-icon [name]="med.taken ? 'check-circle-2' : 'clock'" class="status-icon"></lucide-icon>
+                    </div>
+                    <div class="med-details">
+                        <h4>{{ med.name }} <small>{{ med.dosage }}</small></h4>
+                        <span class="med-time">{{ med.time }}</span>
+                    </div>
+                    <div class="badge-status">
+                        {{ med.taken ? 'Tomado' : 'Pendente' }}
+                    </div>
+                    @if (supabase.isOwner()) {
+                    <button class="btn-delete-med" (click)="deleteMedication(med.id, $event)">
+                        <lucide-icon name="trash-2" class="ui-icon icon-sm"></lucide-icon>
+                    </button>
+                    }
+                </div>
+                } @empty {
+                <p class="empty-state">{{ 'DIARY.NOT_MED' | translate }}</p>
+                }
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: DIÁRIO ALIMENTAR FOTOGRÁFICO -->
+        <section class="cyber-card food-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <lucide-icon name="utensils" class="ui-icon lime-icon"></lucide-icon>
+                    <h3>{{ 'DIARY.PHOTO' | translate }}</h3>
+                </div>
+            </div>
+
+            <!-- Formulário de Upload de Prato (Proprietária) -->
+            @if (supabase.isOwner()) {
+            <form (ngSubmit)="onAddMeal()" class="meal-form">
+                <div class="form-row">
+                    <select [value]="mealType()" (change)="mealType.set($any($event.target).value)">
+                        <option value="Café da Manhã">{{ 'DIARY.BREAKFAST' | translate }}</option>
+                        <option value="Almoço">{{ 'DIARY.LUNCH' | translate }}</option>
+                        <option value="Lanche da Tarde">{{ 'DIARY.SNACK' | translate }}</option>
+                        <option value="Jantar">{{ 'DIARY.DINNER' | translate }}</option>
+                    </select>
+
+                    <input type="time" [value]="mealTime()" (input)="mealTime.set($any($event.target).value)" />
+                </div>
+
+                <div class="photo-upload-box">
+                    @if (mealPhotoPreview()) {
+                    <div class="preview-container">
+                        <img [src]="mealPhotoPreview()" alt="Preview Prato" />
+                        <button type="button" class="btn-remove-photo"
+                            (click)="mealPhotoPreview.set(null); selectedFile.set(null)">✕</button>
+                    </div>
+                    } @else {
+                    <label class="upload-label">
+                        <lucide-icon name="camera" class="upload-icon"></lucide-icon>
+                        <span>{{ 'DIARY.UPLOAD_PHOTO' | translate }}</span>
+                        <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+                    </label>
+                    }
+                </div>
+
+                <textarea placeholder="Observações da refeição (ex: sem glúten, 300g, proteico)..."
+                    [value]="mealNotes()" (input)="mealNotes.set($any($event.target).value)" rows="2">
+          </textarea>
+
+                <button type="submit" class="btn-primary full-width" [disabled]="!mealPhotoPreview() || isSavingMeal()">
+                    <lucide-icon name="upload" class="ui-icon"></lucide-icon>
+                    {{ isSavingMeal() ? 'Salvando...' : 'Registrar Refeição' }}
+                </button>
+            </form>
+            }
+
+            <!-- Galeria de Refeições -->
+            <div class="meals-gallery">
+                @for (meal of meals(); track meal.id) {
+                <div class="meal-card">
+                    <div class="meal-image">
+                        <img [src]="meal.photo_url" [alt]="meal.meal_type" />
+                        <span class="meal-badge">{{ meal.meal_type }} • {{ meal.time }}</span>
+                        @if (supabase.isOwner()) {
+                        <button class="btn-delete-meal" (click)="removeMeal(meal.id)">
+                            <lucide-icon name="trash-2" class="ui-icon icon-sm"></lucide-icon>
+                        </button>
+                        }
+                    </div>
+                    @if (meal.notes) {
+                    <div class="meal-info">
+                        <p>{{ meal.notes }}</p>
+                    </div>
+                    }
+                </div>
+                } @empty {
+                <p class="empty-state">{{ 'DIARY.NOT_REF' | translate }}</p>
+                }
+            </div>
+        </section>
+    </div>
+</div>

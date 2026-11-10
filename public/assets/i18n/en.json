@@ -8,8 +8,8 @@
     "LOADING": "Loading...",
     "SUCCESS_SAVE": "Saved successfully!",
     "ERROR_GENERIC": "An error occurred. Please try again.",
-    "NOT_FOUND":"No records found.",
-    "HISTORY":"History"
+    "NOT_FOUND": "No records found.",
+    "HISTORY": "History"
   },
   "HEADER": {
     "BRAND_MAIN": "Kiwi",
@@ -41,18 +41,26 @@
     "RIGHTHIGH": "Right Thigh (cm)",
     "LEFTARM": "Left Arm (cm)",
     "RIGHTARM": "Right Arm (cm)",
-    "BUST":"Bust (cm)",
+    "BUST": "Bust (cm)",
     "ADD_ENTRY": "Add New Measurement",
     "CHART_TITLE": "Progress Chart",
     "DATE": "Date"
   },
   "DIARY": {
-    "TITLE": "Daily Routine & Meals Journal",
-    "MEDICATION": "Daily Medications",
+    "TITLE": "Diary: Routine and Nutrition",
+    "SUBTITLE": "Diary",
+    "MEDICATION": "Medications & Supplements",
     "MED_TAKEN": "Medication taken?",
-    "MEAL_PHOTO": "Plate Photo",
+    "MEAL_PHOTO": "Photo of the meal",
+    "PHOTO": "Photo Food Diary",
     "UPLOAD_PHOTO": "Upload meal photo",
-    "HISTORY": "Journal History"
+    "HISTORY": "Diary History",
+    "NOT_MED": "No medications registered for today.",
+    "NOT_REF": "No meals registered for today.",
+    "BREAKFAST": "Breakfast",
+    "LUNCH": "Lunch",
+    "SNACK": "Afternoon Snack",
+    "DINNER": "Dinner"
   },
   "GYNO": {
     "TITLE": "Gynecology Tracking & 3D Fibroid",

@@ -47,12 +47,20 @@
     "DATE":"Data"
   },
   "DIARY": {
-    "TITLE": "Diário de Rotina e Alimentação",
-    "MEDICATION": "Medicamentos do Dia",
+    "TITLE": "Diário: Rotina e Alimentação",
+    "SUBTITLE":"Diário",
+    "MEDICATION": "Medicamentos & Suplementos",
     "MED_TAKEN": "Medicamento tomado?",
     "MEAL_PHOTO": "Foto do Prato",
+    "PHOTO":"Diário Alimentar Fotográfico",
     "UPLOAD_PHOTO": "Enviar foto do prato",
-    "HISTORY": "Histórico do Diário"
+    "HISTORY": "Histórico do Diário",
+    "NOT_MED":"Nenhum medicamento cadastrado hoje.",
+    "NOT_REF":"Nenhuma refeição cadastrada hoje.",
+    "BREAKFAST":"Café da Manhã",
+    "LUNCH":"Almoço",
+    "SNACK":"Lanche da Tarde",
+    "DINNER":"Jantar"
   },
   "GYNO": {
     "TITLE": "Acompanhamento Ginecológico & Mioma 3D",

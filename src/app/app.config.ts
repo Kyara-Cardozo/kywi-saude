@@ -17,7 +17,13 @@ import {
   Plus,
   Calendar,
   Ruler,
-  Trash2
+  Trash2,
+  Camera,
+  CheckCircle2,
+  Clock,
+  Pill,
+  Upload,
+  Utensils
 } from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
@@ -40,7 +46,13 @@ export const appConfig: ApplicationConfig = {
         Plus, 
         Calendar, 
         Ruler, 
-        Trash2
+        Trash2,
+        Pill, 
+        Utensils,
+        Camera, 
+        Clock, 
+        CheckCircle2, 
+        Upload, 
       })
     )
   ]
