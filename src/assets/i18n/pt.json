@@ -17,15 +17,15 @@
     "LOGOUT_LOGIN": "Sair / Entrar"
   },
   "LOGIN": {
-    "TITLE": "Bem-vinda ao kywi.saúde",
-    "SUBTITLE": "Gerenciamento inteligente do seu peso e saúde ginecológica",
-    "LOGIN_TAB": "Área Restrita (Dona)",
+    "TITLE": "Bem-vinda ao kywi saúde",
+    "SUBTITLE": "Gerenciamento do meu peso e saúde ginecológica",
+    "LOGIN_TAB": "Área Restrita",
     "VISITOR_TAB": "Entrar como Visitante",
     "EMAIL": "E-mail",
     "PASSWORD": "Senha",
     "ENTER_OWNER": "Entrar como Proprietária",
     "ENTER_VISITOR": "Acessar como Visitante",
-    "VISITOR_INFO": "Como visitante você pode visualizar os dados de peso e diário, mas não poderá editar. O menu de ginecologia requer acesso médico."
+    "VISITOR_INFO": "Como visitante, você terá acesso à visualização do meu peso, diário alimentar e metas, sem permissão para realizar alterações. Já o menu 'Saúde Gineco' é de acesso exclusivo da ginecologista."
   },
   "WEIGHT": {
     "TITLE": "Evolução de Peso e Medidas",

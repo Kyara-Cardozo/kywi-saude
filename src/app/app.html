@@ -8,13 +8,16 @@
 
     <nav class="nav-links">
       <a routerLink="/peso-meta" routerLinkActive="active" class="nav-btn">
-        <span class="icon">⚡</span> {{ 'HEADER.MENU_WEIGHT' | translate: i18n.currentLang() }}
+        <lucide-icon name="scale" class="ui-icon"></lucide-icon>
+        {{ 'HEADER.MENU_WEIGHT' | translate }}
       </a>
       <a routerLink="/diario" routerLinkActive="active" class="nav-btn">
-        <span class="icon">🥗</span> {{ 'HEADER.MENU_DIARY' | translate: i18n.currentLang() }}
+        <lucide-icon name="book-open" class="ui-icon"></lucide-icon>
+        {{ 'HEADER.MENU_DIARY' | translate }}
       </a>
       <a routerLink="/gineco" routerLinkActive="active" class="nav-btn gyno-btn">
-        <span class="icon">🌸</span> {{ 'HEADER.MENU_GYNO' | translate: i18n.currentLang() }}
+        <lucide-icon name="heart" class="ui-icon"></lucide-icon>
+        {{ 'HEADER.MENU_GYNO' | translate }}
       </a>
     </nav>
 

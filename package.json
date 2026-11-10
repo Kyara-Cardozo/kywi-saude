@@ -20,6 +20,7 @@
     "@supabase/supabase-js": "^2.109.0",
     "@types/three": "^0.187.0",
     "chart.js": "^4.6.1",
+    "lucide-angular": "^1.0.0",
     "ng2-charts": "^11.0.0",
     "rxjs": "~7.8.0",
     "three": "^0.187.0",

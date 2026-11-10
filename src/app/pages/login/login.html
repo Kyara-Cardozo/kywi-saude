@@ -1,1 +1,66 @@
-<p>login works!</p>
+<div class="login-container">
+    <div class="cyber-card login-card">
+        <div class="card-header">
+            <div class="brand-badge">K</div>
+            <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+            <p class="subtitle">{{ 'LOGIN.SUBTITLE' | translate }}</p>
+        </div>
+
+        <!-- Abas de seleção -->
+        <div class="tab-selector">
+            <button class="tab-btn" [class.active]="activeTab() === 'owner'" (click)="setTab('owner')">
+                <lucide-icon name="lock" class="ui-icon"></lucide-icon>
+                {{ 'LOGIN.LOGIN_TAB' | translate }}
+            </button>
+            <button class="tab-btn" [class.active]="activeTab() === 'visitor'" (click)="setTab('visitor')">
+                {{ 'LOGIN.VISITOR_TAB' | translate }}
+            </button>
+        </div>
+
+        <!-- Formulário da Proprietária -->
+        @if (activeTab() === 'owner') {
+        <form (ngSubmit)="onLoginOwner()" class="auth-form">
+            @if (errorMessage()) {
+            <div class="error-banner">
+                <lucide-icon name="alert-circle" class="ui-icon"></lucide-icon>
+                {{ errorMessage() }}
+            </div>
+            }
+
+            <div class="form-group">
+                <label for="email">{{ 'LOGIN.EMAIL' | translate }}</label>
+                <input type="email" id="email" [value]="email()" (input)="email.set($any($event.target).value)"
+                    placeholder="seu.email@exemplo.com" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">{{ 'LOGIN.PASSWORD' | translate }}</label>
+                <input type="password" id="password" [value]="password()"
+                    (input)="password.set($any($event.target).value)" placeholder="••••••••" required />
+            </div>
+
+            <button type="submit" class="btn-primary full-width" [disabled]="isLoading()">
+                @if (isLoading()) {
+                ⚡ {{ 'COMMON.LOADING' | translate }}
+                } @else {
+                🚀 {{ 'LOGIN.ENTER_OWNER' | translate }}
+                }
+            </button>
+        </form>
+        }
+
+        <!-- Painel de Acesso do Visitante -->
+        @if (activeTab() === 'visitor') {
+        <div class="visitor-panel">
+            <div class="info-box">
+                <lucide-icon name="info" class="ui-icon info-icon"></lucide-icon>
+                <p>{{ 'LOGIN.VISITOR_INFO' | translate }}</p>
+            </div>
+
+            <button type="button" class="btn-secondary full-width" (click)="onAccessAsVisitor()">
+                ✨ {{ 'LOGIN.ENTER_VISITOR' | translate }}
+            </button>
+        </div>
+        }
+    </div>
+</div>

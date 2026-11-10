@@ -23,8 +23,10 @@ export class I18nService {
         localStorage.setItem('kywi_lang', lang);
     }
 
-    public translate(key: string, lang: Language): string {
-        const dict = this.dictionaries[lang] || pt;
+    // lang agora é opcional (lang?: Language)
+    public translate(key: string, lang?: Language): string {
+        const targetLang = lang || this.currentLang();
+        const dict = this.dictionaries[targetLang] || pt;
         const keys = key.split('.');
         let result: any = dict;
 

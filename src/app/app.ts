@@ -2,11 +2,18 @@ import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { I18nService, Language } from './services/i18n.service';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe],
+  imports: [
+    RouterOutlet, 
+    RouterLink, 
+    RouterLinkActive,
+    TranslatePipe, 
+    LucideAngularModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
