@@ -1,0 +1,75 @@
+{
+  "COMMON": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "DATE": "Date",
+    "NOTES": "Notes",
+    "LOADING": "Loading...",
+    "SUCCESS_SAVE": "Saved successfully!",
+    "ERROR_GENERIC": "An error occurred. Please try again."
+  },
+  "HEADER": {
+    "BRAND_SUB": ".health",
+    "MENU_WEIGHT": "Weight & Goal",
+    "MENU_DIARY": "Journal",
+    "MENU_GYNO": "Gyno Health",
+    "LOGOUT_LOGIN": "Logout / Login"
+  },
+  "LOGIN": {
+    "TITLE": "Welcome to kywi.health",
+    "SUBTITLE": "Smart management of your weight and gynecological health",
+    "LOGIN_TAB": "Owner Area",
+    "VISITOR_TAB": "Enter as Visitor",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "ENTER_OWNER": "Login as Owner",
+    "ENTER_VISITOR": "Access as Visitor",
+    "VISITOR_INFO": "As a visitor, you can view weight and journal logs, but editing is disabled. The gynecology menu requires doctor validation."
+  },
+  "WEIGHT": {
+    "TITLE": "Weight & Measurements Evolution",
+    "CURRENT_WEIGHT": "Current Weight (kg)",
+    "TARGET_WEIGHT": "Target Weight (kg)",
+    "WAIST": "Waist (cm)",
+    "HIP": "Hip (cm)",
+    "ADD_ENTRY": "Add New Entry",
+    "CHART_TITLE": "Progress Chart"
+  },
+  "DIARY": {
+    "TITLE": "Daily Routine & Meals Journal",
+    "MEDICATION": "Daily Medications",
+    "MED_TAKEN": "Medication taken?",
+    "MEAL_PHOTO": "Plate Photo",
+    "UPLOAD_PHOTO": "Upload meal photo",
+    "HISTORY": "Journal History"
+  },
+  "GYNO": {
+    "TITLE": "Gynecology Tracking & 3D Fibroid",
+    "FIBROID_SIZE": "Fibroid Size (mm)",
+    "FIBROID_TYPE": "Fibroid Type",
+    "TYPES": {
+      "SUBMUCOSAL": "Submucosal",
+      "INTRAMURAL": "Intramural",
+      "SUBSEROSAL": "Subserosal"
+    },
+    "BLEEDING": "Bleeding Intensity",
+    "BLEEDING_LEVELS": {
+      "NONE": "None",
+      "LIGHT": "Light",
+      "MODERATE": "Moderate",
+      "INTENSE": "Intense"
+    },
+    "PAIN_LEVEL": "Pain Level (0 to 10)",
+    "MODEL_3D_TITLE": "3D Fibroid Visualization"
+  },
+  "CRM": {
+    "TITLE": "Restricted Doctor Access",
+    "SUBTITLE": "Enter your CRM and PIN code to view the patient's gynecological records.",
+    "CRM_NUMBER": "CRM Number",
+    "STATE": "State (UF)",
+    "PIN": "Access PIN",
+    "VERIFY_BTN": "Validate & Access",
+    "INVALID_CRM": "Invalid CRM or PIN. Please try again."
+  }
+}

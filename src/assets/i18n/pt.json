@@ -1,0 +1,75 @@
+{
+  "COMMON": {
+    "SAVE": "Salvar",
+    "CANCEL": "Cancelar",
+    "DELETE": "Excluir",
+    "DATE": "Data",
+    "NOTES": "Observações",
+    "LOADING": "Carregando...",
+    "SUCCESS_SAVE": "Salvo com sucesso!",
+    "ERROR_GENERIC": "Ocorreu um erro. Tente novamente."
+  },
+  "HEADER": {
+    "BRAND_SUB": ".saúde",
+    "MENU_WEIGHT": "Peso & Meta",
+    "MENU_DIARY": "Diário",
+    "MENU_GYNO": "Saúde Gineco",
+    "LOGOUT_LOGIN": "Sair / Entrar"
+  },
+  "LOGIN": {
+    "TITLE": "Bem-vinda ao kywi.saúde",
+    "SUBTITLE": "Gerenciamento inteligente do seu peso e saúde ginecológica",
+    "LOGIN_TAB": "Área Restrita (Dona)",
+    "VISITOR_TAB": "Entrar como Visitante",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Senha",
+    "ENTER_OWNER": "Entrar como Proprietária",
+    "ENTER_VISITOR": "Acessar como Visitante",
+    "VISITOR_INFO": "Como visitante você pode visualizar os dados de peso e diário, mas não poderá editar. O menu de ginecologia requer acesso médico."
+  },
+  "WEIGHT": {
+    "TITLE": "Evolução de Peso e Medidas",
+    "CURRENT_WEIGHT": "Peso Atual (kg)",
+    "TARGET_WEIGHT": "Meta de Peso (kg)",
+    "WAIST": "Cintura (cm)",
+    "HIP": "Quadril (cm)",
+    "ADD_ENTRY": "Adicionar Nova Medição",
+    "CHART_TITLE": "Gráfico de Evolução"
+  },
+  "DIARY": {
+    "TITLE": "Diário de Rotina e Alimentação",
+    "MEDICATION": "Medicamentos do Dia",
+    "MED_TAKEN": "Medicamento tomado?",
+    "MEAL_PHOTO": "Foto do Prato",
+    "UPLOAD_PHOTO": "Enviar foto do prato",
+    "HISTORY": "Histórico do Diário"
+  },
+  "GYNO": {
+    "TITLE": "Acompanhamento Ginecológico & Mioma 3D",
+    "FIBROID_SIZE": "Tamanho do Mioma (mm)",
+    "FIBROID_TYPE": "Tipo de Mioma",
+    "TYPES": {
+      "SUBMUCOSAL": "Submucoso",
+      "INTRAMURAL": "Intramural",
+      "SUBSEROSAL": "Subseroso"
+    },
+    "BLEEDING": "Intensidade do Sangramento",
+    "BLEEDING_LEVELS": {
+      "NONE": "Ausente",
+      "LIGHT": "Leve",
+      "MODERATE": "Moderado",
+      "INTENSE": "Intenso"
+    },
+    "PAIN_LEVEL": "Nível de Dor (0 a 10)",
+    "MODEL_3D_TITLE": "Visualização 3D do Mioma"
+  },
+  "CRM": {
+    "TITLE": "Acesso Restrito à Médica",
+    "SUBTITLE": "Informe seu CRM e código PIN para visualizar os dados ginecológicos da paciente.",
+    "CRM_NUMBER": "Número do CRM",
+    "STATE": "UF do CRM",
+    "PIN": "PIN de Acesso",
+    "VERIFY_BTN": "Validar e Acessar",
+    "INVALID_CRM": "CRM ou PIN inválido. Tente novamente."
+  }
+}

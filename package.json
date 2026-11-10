@@ -17,8 +17,14 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "@supabase/supabase-js": "^2.109.0",
+    "@types/three": "^0.187.0",
+    "chart.js": "^4.6.1",
+    "ng2-charts": "^11.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "three": "^0.187.0",
+    "tslib": "^2.3.0",
+    "zone.js": "^0.16.3"
   },
   "devDependencies": {
     "@angular/build": "^21.2.29",

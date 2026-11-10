@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+/* Palette KYWI Saúde */
+:root {
+    --color-olive: #566700;
+    --color-pink: #FF94DB;
+    --color-neon-lime: #C7F000;
+    --color-ice-blue: #E5F0FE;
+    --color-electric-blue: #4B75FF;
+
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    --radius-pill: 999px;
+    --radius-card: 24px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: var(--color-ice-blue);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(255, 148, 219, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(199, 240, 0, 0.2) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: #1a1e04;
+    min-height: 100vh;
+}
