@@ -7,10 +7,13 @@
     "NOTES": "Notes",
     "LOADING": "Loading...",
     "SUCCESS_SAVE": "Saved successfully!",
-    "ERROR_GENERIC": "An error occurred. Please try again."
+    "ERROR_GENERIC": "An error occurred. Please try again.",
+    "NOT_FOUND":"No records found.",
+    "HISTORY":"History"
   },
   "HEADER": {
-    "BRAND_SUB": ".health",
+    "BRAND_MAIN": "Kiwi",
+    "BRAND_SUB": "health",
     "MENU_WEIGHT": "Weight & Goal",
     "MENU_DIARY": "Journal",
     "MENU_GYNO": "Gyno Health",
@@ -28,13 +31,20 @@
     "VISITOR_INFO": "As a visitor, you can view weight and journal logs, but editing is disabled. The gynecology menu requires doctor validation."
   },
   "WEIGHT": {
-    "TITLE": "Weight & Measurements Evolution",
+    "TITLE": "Weight and Measurements Progress",
     "CURRENT_WEIGHT": "Current Weight (kg)",
     "TARGET_WEIGHT": "Target Weight (kg)",
+    "IMC": "BMI",
     "WAIST": "Waist (cm)",
-    "HIP": "Hip (cm)",
-    "ADD_ENTRY": "Add New Entry",
-    "CHART_TITLE": "Progress Chart"
+    "HIP": "Hips (cm)",
+    "LEFTHIGH": "Left Thigh (cm)",
+    "RIGHTHIGH": "Right Thigh (cm)",
+    "LEFTARM": "Left Arm (cm)",
+    "RIGHTARM": "Right Arm (cm)",
+    "BUST":"Bust (cm)",
+    "ADD_ENTRY": "Add New Measurement",
+    "CHART_TITLE": "Progress Chart",
+    "DATE": "Date"
   },
   "DIARY": {
     "TITLE": "Daily Routine & Meals Journal",

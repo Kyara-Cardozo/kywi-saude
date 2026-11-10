@@ -19,6 +19,8 @@
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 10px 30px rgba(75, 117, 255, 0.08);
+    width: 100%;
+    max-width: 1600px;
 }
 
 .brand {
@@ -111,9 +113,11 @@
 }
 
 .main-content {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 0 24px 48px;
+    padding: 20px 32px;
+    box-sizing: border-box;
 }
 
 .user-actions {

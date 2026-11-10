@@ -5,7 +5,8 @@ import { environment } from '../../environment/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class Supabase {private supabase: SupabaseClient;
+export class Supabase {
+    private supabase: SupabaseClient;
 
   // Controle de Sessão Simplificado
   private isOwnerUser = false;
@@ -64,7 +65,13 @@ export class Supabase {private supabase: SupabaseClient;
       .order('date', { ascending: true });
   }
 
-  async addWeightLog(log: { date: string; weight: number; target_weight?: number; waist?: number; hip?: number }) {
+  async addWeightLog(log: {
+    date: string;
+    weight: number;
+    target_weight?: number | null;
+    waist?: number | null;
+    hip?: number | null;
+  }) {
     return await this.supabase.from('weight_logs').insert([log]);
   }
 

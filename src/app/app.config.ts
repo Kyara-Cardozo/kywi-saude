@@ -2,7 +2,23 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
-import { LucideAngularModule, Scale, BookOpen, Heart, LogIn, Eye, AlertCircle, Info } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Scale,
+  BookOpen,
+  Heart,
+  LogIn,
+  Lock,
+  Eye,
+  AlertCircle,
+  Info,
+  Target,
+  TrendingUp,
+  Plus,
+  Calendar,
+  Ruler,
+  Trash2
+} from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -10,7 +26,22 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(
-      LucideAngularModule.pick({ Scale, BookOpen, Heart, LogIn, Eye, AlertCircle, Info })
+      LucideAngularModule.pick({
+        Scale, 
+        BookOpen, 
+        Heart, 
+        LogIn, 
+        Lock, 
+        Eye, 
+        AlertCircle, 
+        Info,
+        Target, 
+        TrendingUp, 
+        Plus, 
+        Calendar, 
+        Ruler, 
+        Trash2
+      })
     )
   ]
 };

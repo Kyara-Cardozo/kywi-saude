@@ -1,9 +1,23 @@
 <header class="app-header">
   <div class="header-container">
     <div class="brand">
-      <span class="logo-badge">K</span>
-      <span class="brand-name">kywi<span class="highlight">{{ 'HEADER.BRAND_SUB' | translate: i18n.currentLang()
-          }}</span></span>
+      <div class="brand-badge">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#566700" />
+          <circle cx="12" cy="12" r="7.5" fill="#C7F000" />
+          <circle cx="12" cy="12" r="3.2" fill="#E5F0FE" />
+          <circle cx="12" cy="6.8" r="0.75" fill="#1A1E04" />
+          <circle cx="15.6" cy="8.3" r="0.75" fill="#1A1E04" />
+          <circle cx="17.2" cy="12" r="0.75" fill="#1A1E04" />
+          <circle cx="15.6" cy="15.7" r="0.75" fill="#1A1E04" />
+          <circle cx="12" cy="17.2" r="0.75" fill="#1A1E04" />
+          <circle cx="8.4" cy="15.7" r="0.75" fill="#1A1E04" />
+          <circle cx="6.8" cy="12" r="0.75" fill="#1A1E04" />
+          <circle cx="8.4" cy="8.3" r="0.75" fill="#1A1E04" />
+        </svg>
+      </div>
+      <span class="brand-name">{{ 'HEADER.BRAND_MAIN' | translate }}
+        <span class="highlight">{{ 'HEADER.BRAND_SUB' | translate }}</span></span>
     </div>
 
     <nav class="nav-links">

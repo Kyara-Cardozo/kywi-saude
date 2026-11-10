@@ -1,1 +1,150 @@
-<p>peso-meta works!</p>
+<div class="page-container">
+    <!-- Banner de Visitante se não for a proprietária -->
+    @if (!supabase.isOwner()) {
+    <div class="visitor-notice">
+        <lucide-icon name="eye" class="ui-icon"></lucide-icon>
+        <span>{{ 'LOGIN.VISITOR_INFO' | translate }}</span>
+    </div>
+    }
+
+    <!-- Cards de Métricas em Destaque -->
+    <div class="metrics-grid">
+        <div class="cyber-card metric-card">
+            <div class="card-icon lime">
+                <lucide-icon name="scale" class="ui-icon"></lucide-icon>
+            </div>
+            <div class="metric-info">
+                <span class="label">{{ 'WEIGHT.CURRENT_WEIGHT' | translate }}</span>
+                <h3 class="value">{{ latestWeight() }} <small>kg</small></h3>
+            </div>
+        </div>
+
+        <div class="cyber-card metric-card">
+            <div class="card-icon pink">
+                <lucide-icon name="target" class="ui-icon"></lucide-icon>
+            </div>
+            <div class="metric-info">
+                <span class="label">{{ 'WEIGHT.TARGET_WEIGHT' | translate }}</span>
+                <h3 class="value">{{ latestTarget() }} <small>kg</small></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <!-- Formulário de Entrada (Liberado apenas para a Proprietária) -->
+        @if (supabase.isOwner()) {
+        <div class="cyber-card form-card">
+            <div class="card-title">
+                <lucide-icon name="plus" class="ui-icon"></lucide-icon>
+                <h3>{{ 'WEIGHT.ADD_ENTRY' | translate }}</h3>
+            </div>
+
+            <form (ngSubmit)="onSave()" class="entry-form">
+                <div class="form-group">
+                    <label>
+                        <lucide-icon name="calendar" class="ui-icon icon-sm"></lucide-icon>
+                        {{ 'COMMON.DATE' | translate }}
+                    </label>
+                    <input type="date" [value]="date()" (input)="date.set($any($event.target).value)" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>{{ 'WEIGHT.CURRENT_WEIGHT' | translate }}</label>
+                        <input type="number" step="0.1" [value]="weight()"
+                            (input)="weight.set($any($event.target).value)" placeholder="ex: 70.5" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ 'WEIGHT.TARGET_WEIGHT' | translate }}</label>
+                        <input type="number" step="0.1" [value]="targetWeight()"
+                            (input)="targetWeight.set($any($event.target).value)" placeholder="ex: 65.0" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>
+                            <lucide-icon name="ruler" class="ui-icon icon-sm"></lucide-icon>
+                            {{ 'WEIGHT.WAIST' | translate }}
+                        </label>
+                        <input type="number" step="0.5" [value]="waist()" (input)="waist.set($any($event.target).value)"
+                            placeholder="cm" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <lucide-icon name="ruler" class="ui-icon icon-sm"></lucide-icon>
+                            {{ 'WEIGHT.HIP' | translate }}
+                        </label>
+                        <input type="number" step="0.5" [value]="hip()" (input)="hip.set($any($event.target).value)"
+                            placeholder="cm" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary full-width" [disabled]="isSaving()">
+                    {{ isSaving() ? ('COMMON.LOADING' | translate) : ('COMMON.SAVE' | translate) }}
+                </button>
+            </form>
+        </div>
+        }
+
+        <!-- Gráfico de Evolução -->
+        <div class="cyber-card chart-card" [class.full-width-card]="!supabase.isOwner()">
+            <div class="card-title">
+                <lucide-icon name="trending-up" class="ui-icon"></lucide-icon>
+                <h3>{{ 'WEIGHT.CHART_TITLE' | translate }}</h3>
+            </div>
+
+            <div class="chart-container">
+                <canvas #chartCanvas></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela do Histórico -->
+    <div class="cyber-card table-card">
+        <div class="card-title">
+            <h3>{{ 'COMMON.HISTORY' | translate }}</h3>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'WEIGHT.DATE' | translate }}</th>
+                        <th>{{ 'WEIGHT.CURRENT_WEIGHT' | translate }}</th>
+                        <th>{{ 'WEIGHT.IMC' | translate }}</th>
+                        <th>{{ 'WEIGHT.WAIST' | translate }}</th>
+                        <th>{{ 'WEIGHT.HIP' | translate }}</th>
+                        <th>{{ 'WEIGHT.BUST' | translate }}</th>
+                        <th>{{ 'WEIGHT.LEFTHIGH' | translate }}</th>
+                        <th>{{ 'WEIGHT.RIGHTHIGH' | translate }}</th>
+                        <th>{{ 'WEIGHT.LEFTARM' | translate }}</th>
+                        <th>{{ 'WEIGHT.RIGHTARM' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of logs(); track item.id) {
+                    <tr>
+                        <td class="col-date"><strong>{{ item.date }}</strong></td>
+                        <td class="highlight-weight">{{ item.weight ? item.weight + ' kg' : '--' }}</td>
+                        <td class="highlight-imc">{{ item.imc ? item.imc : '--' }}</td>
+                        <td>{{ item.waist ? item.waist + ' cm' : '--' }}</td>
+                        <td>{{ item.hip ? item.hip + ' cm' : '--' }}</td>
+                        <td>{{ item.bust ? item.bust + ' cm' : '--' }}</td>
+                        <td>{{ item.left_thigh ? item.left_thigh + ' cm' : '--' }}</td>
+                        <td>{{ item.right_thigh ? item.right_thigh + ' cm' : '--' }}</td>
+                        <td>{{ item.left_arm ? item.left_arm + ' cm' : '--' }}</td>
+                        <td>{{ item.right_arm ? item.right_arm + ' cm' : '--' }}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="10" class="empty-state">{{ 'COMMON.NOT_FOUND' | translate }}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

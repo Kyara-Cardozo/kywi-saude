@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import pt from '../../assets/i18n/pt.json';
-import en from '../../assets/i18n/en.json';
+import pt from '../../../public/assets/i18n/pt.json';
+import en from '../../../public/assets/i18n/en.json';
 
 export type Language = 'pt' | 'en';
 

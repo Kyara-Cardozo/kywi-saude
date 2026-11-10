@@ -198,3 +198,12 @@
         box-shadow: 0 6px 22px rgba(199, 240, 0, 0.6);
     }
 }
+
+.brand-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 16px auto;
+    filter: drop-shadow(0 4px 14px rgba(199, 240, 0, 0.45));
+}

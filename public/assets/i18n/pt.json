@@ -7,10 +7,13 @@
     "NOTES": "Observações",
     "LOADING": "Carregando...",
     "SUCCESS_SAVE": "Salvo com sucesso!",
-    "ERROR_GENERIC": "Ocorreu um erro. Tente novamente."
+    "ERROR_GENERIC": "Ocorreu um erro. Tente novamente.",
+    "NOT_FOUND":"Nenhum registro encontrado.",
+    "HISTORY":"Histórico"
   },
   "HEADER": {
-    "BRAND_SUB": ".saúde",
+    "BRAND_MAIN": "Kiwi",
+    "BRAND_SUB": "Saúde",
     "MENU_WEIGHT": "Peso & Meta",
     "MENU_DIARY": "Diário",
     "MENU_GYNO": "Saúde Gineco",
@@ -31,10 +34,17 @@
     "TITLE": "Evolução de Peso e Medidas",
     "CURRENT_WEIGHT": "Peso Atual (kg)",
     "TARGET_WEIGHT": "Meta de Peso (kg)",
+    "IMC":"IMC",
     "WAIST": "Cintura (cm)",
     "HIP": "Quadril (cm)",
+    "LEFTHIGH": "Coxa Esquerda (cm)",
+    "RIGHTHIGH": "Coxa Direita (cm)",
+    "LEFTARM": "Braço Esquerdo (cm)",
+    "RIGHTARM": "Braço Direito (cm)",
+    "BUST":"Busto (cm)",
     "ADD_ENTRY": "Adicionar Nova Medição",
-    "CHART_TITLE": "Gráfico de Evolução"
+    "CHART_TITLE": "Gráfico de Evolução",
+    "DATE":"Data"
   },
   "DIARY": {
     "TITLE": "Diário de Rotina e Alimentação",
