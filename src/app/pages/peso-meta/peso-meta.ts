@@ -1,16 +1,42 @@
 import { Component, computed, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { I18nService } from '../../services/i18n.service';
-import { Supabase } from '../../services/supabase';
-import { Chart, registerables } from 'chart.js';
+import { 
+  Chart, 
+  CategoryScale, 
+  LinearScale, 
+  PointElement, 
+  LineElement, 
+  Title, 
+  Tooltip, 
+  Legend, 
+  LineController,
+  Filler
+} from 'chart.js';
 import { LucideAngularModule } from 'lucide-angular';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { SupabaseService } from '../../services/supabase.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
+Chart.register(
+  CategoryScale, 
+  LinearScale, 
+  PointElement, 
+  LineElement, 
+  Title, 
+  Tooltip, 
+  Legend, 
+  LineController,
+  Filler
+);
 @Component({
   selector: 'app-peso-meta',
-  imports: [LucideAngularModule, TranslatePipe],
+  standalone: true,
+  imports: [CommonModule, FormsModule, LucideAngularModule, TranslatePipe],
   templateUrl: './peso-meta.html',
   styleUrl: './peso-meta.scss',
 })
+
 export class PesoMeta implements OnInit {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -39,7 +65,7 @@ export class PesoMeta implements OnInit {
   private chartInstance: Chart | null = null;
 
   constructor(
-    public supabase: Supabase,
+    public supabase: SupabaseService,
     public i18n: I18nService
   ) { }
 

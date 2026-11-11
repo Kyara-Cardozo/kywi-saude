@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { I18nService } from '../../services/i18n.service';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { LucideAngularModule } from 'lucide-angular';
-import { Supabase } from '../../services/supabase';
+import { SupabaseService } from '../../services/supabase.service';
 
 export interface Medication {
   id?: string;
@@ -54,7 +54,7 @@ export class Diario implements OnInit {
   meals = signal<MealLog[]>([]);
 
   constructor(
-    public supabase: Supabase,
+    public supabase: SupabaseService,
     public i18n: I18nService
   ) {}
 

@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { Supabase } from '../services/supabase';
+import { SupabaseService } from '../services/supabase.service';
 
 export const crmGuard: CanActivateFn = (route, state) => {
-const supabase = inject(Supabase);
+const supabase = inject(SupabaseService);
   const router = inject(Router);
 
   // Se for a dona logada ou a médica já autenticada pelo CRM, libera a página

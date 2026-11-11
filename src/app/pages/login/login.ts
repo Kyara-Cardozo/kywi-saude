@@ -1,17 +1,19 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { I18nService } from '../../services/i18n.service';
-import { Supabase } from '../../services/supabase';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { LucideAngularModule, Lock, Eye, AlertCircle, Info } from 'lucide-angular';
+import { SupabaseService } from '../../services/supabase.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   imports: [
     CommonModule,
     TranslatePipe,
-    LucideAngularModule
+    LucideAngularModule,
+    FormsModule
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -24,7 +26,7 @@ export class Login {
   isLoading = signal(false);
 
   constructor(
-    private supabase: Supabase,
+    private supabase: SupabaseService,
     private router: Router,
     public i18n: I18nService
   ) { }
@@ -35,10 +37,7 @@ export class Login {
   }
 
   async onLoginOwner() {
-    if (!this.email() || !this.password()) {
-      this.errorMessage.set('Preencha e-mail e senha para acessar.');
-      return;
-    }
+    if (!this.email() || !this.password()) return;
 
     this.isLoading.set(true);
     this.errorMessage.set('');
@@ -47,8 +46,9 @@ export class Login {
     this.isLoading.set(false);
 
     if (error) {
-      this.errorMessage.set(error.message || 'Erro ao realizar login.');
+      this.errorMessage.set('E-mail ou senha incorretos.');
     } else if (data.user) {
+      // O Signal isOwner já foi atualizado para true reativamente!
       this.router.navigate(['/peso-meta']);
     }
   }
@@ -57,4 +57,5 @@ export class Login {
     this.supabase.setVisitorMode();
     this.router.navigate(['/peso-meta']);
   }
+
 }
