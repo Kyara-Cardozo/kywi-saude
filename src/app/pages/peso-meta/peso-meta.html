@@ -15,7 +15,7 @@
             </div>
             <div class="metric-info">
                 <span class="label">{{ 'WEIGHT.CURRENT_WEIGHT' | translate }}</span>
-                <h3 class="value">{{ latestWeight() }} <small>kg</small></h3>
+                <h3 class="value">{{ latestWeight() }} <small>{{ 'COMMON.Kg' | translate }}</small></h3>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
             </div>
             <div class="metric-info">
                 <span class="label">{{ 'WEIGHT.TARGET_WEIGHT' | translate }}</span>
-                <h3 class="value">{{ latestTarget() }} <small>kg</small></h3>
+                <h3 class="value">{{ latestTarget() }} <small>{{ 'COMMON.Kg' | translate }}</small></h3>
             </div>
         </div>
     </div>
@@ -33,60 +33,103 @@
     <div class="content-grid">
         <!-- Formulário de Entrada (Liberado apenas para a Proprietária) -->
         @if (supabase.isOwner()) {
-        <div class="cyber-card form-card">
-            <div class="card-title">
-                <lucide-icon name="plus" class="ui-icon"></lucide-icon>
-                <h3>{{ 'WEIGHT.ADD_ENTRY' | translate }}</h3>
+        <section class="cyber-card add-measurement-card">
+            <div class="card-header">
+                <lucide-icon name="plus" class="ui-icon lime-icon"></lucide-icon>
+                <h3>{{ 'WEIGHT.DATE' | translate }}</h3>
             </div>
 
-            <form (ngSubmit)="onSave()" class="entry-form">
-                <div class="form-group">
-                    <label>
-                        <lucide-icon name="calendar" class="ui-icon icon-sm"></lucide-icon>
-                        {{ 'COMMON.DATE' | translate }}
-                    </label>
-                    <input type="date" [value]="date()" (input)="date.set($any($event.target).value)" required />
+            <form (ngSubmit)="onSave()" class="measurement-form">
+                <!-- Container com rolagem horizontal -->
+                <div class="form-scroll-wrapper">
+
+                    <!-- Coluna 1: Dados Principais -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="date">{{ 'WEIGHT.DATE' | translate }} *</label>
+                            <input type="date" id="date" [value]="date()" (input)="date.set($any($event.target).value)"
+                                required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">{{ 'WEIGHT.CURRENT_WEIGHT' | translate }} *</label>
+                            <input type="number" step="0.1" id="weight" placeholder="ex: 72.5" [value]="weight()"
+                                (input)="weight.set($any($event.target).value)" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="targetWeight">{{ 'WEIGHT.TARGET_WEIGHT' | translate }}</label>
+                            <input type="number" step="0.1" id="targetWeight" placeholder="ex: 65.0"
+                                [value]="targetWeight()" (input)="targetWeight.set($any($event.target).value)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imc">{{ 'WEIGHT.IMC' | translate }}</label>
+                            <input type="text" id="imc" />
+                        </div>
+                    </div>
+
+                    <!-- Coluna 2: Tronco -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="waist">{{ 'WEIGHT.WAIST' | translate }} </label>
+                            <input type="number" step="0.5" id="waist" placeholder="ex: 80" [value]="waist()"
+                                (input)="waist.set($any($event.target).value)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hip">{{ 'WEIGHT.HIP' | translate }} </label>
+                            <input type="number" step="0.5" id="hip" placeholder="ex: 102" [value]="hip()"
+                                (input)="hip.set($any($event.target).value)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bust">{{ 'WEIGHT.BUST' | translate }} </label>
+                            <input type="number" step="0.5" id="bust" placeholder="ex: 95" [value]="bust()"
+                                (input)="bust.set($any($event.target).value)" />
+                        </div>
+                    </div>
+
+                    <!-- Coluna 3: Membros Inferiores -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="leftThigh">{{ 'WEIGHT.LEFTHIGH' | translate }} </label>
+                            <input type="number" step="0.5" id="leftThigh" placeholder="ex: 58" [value]="leftThigh()"
+                                (input)="leftThigh.set($any($event.target).value)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rightThigh">{{ 'WEIGHT.RIGHTHIGH' | translate }} </label>
+                            <input type="number" step="0.5" id="rightThigh" placeholder="ex: 58" [value]="rightThigh()"
+                                (input)="rightThigh.set($any($event.target).value)" />
+                        </div>
+                    </div>
+
+                    <!-- Coluna 4: Membros Superiores -->
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="leftArm">{{ 'WEIGHT.LEFTARM' | translate }} (cm)</label>
+                            <input type="number" step="0.5" id="leftArm" placeholder="ex: 30" [value]="leftArm()"
+                                (input)="leftArm.set($any($event.target).value)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rightArm">{{ 'WEIGHT.RIGHTARM' | translate }} (cm)</label>
+                            <input type="number" step="0.5" id="rightArm" placeholder="ex: 30" [value]="rightArm()"
+                                (input)="rightArm.set($any($event.target).value)" />
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>{{ 'WEIGHT.CURRENT_WEIGHT' | translate }}</label>
-                        <input type="number" step="0.1" [value]="weight()"
-                            (input)="weight.set($any($event.target).value)" placeholder="ex: 70.5" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{ 'WEIGHT.TARGET_WEIGHT' | translate }}</label>
-                        <input type="number" step="0.1" [value]="targetWeight()"
-                            (input)="targetWeight.set($any($event.target).value)" placeholder="ex: 65.0" />
-                    </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" [disabled]="isSaving()">
+                        {{ isSaving() ? 'Salvando...' : 'Salvar Registro' }}
+                    </button>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>
-                            <lucide-icon name="ruler" class="ui-icon icon-sm"></lucide-icon>
-                            {{ 'WEIGHT.WAIST' | translate }}
-                        </label>
-                        <input type="number" step="0.5" [value]="waist()" (input)="waist.set($any($event.target).value)"
-                            placeholder="cm" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <lucide-icon name="ruler" class="ui-icon icon-sm"></lucide-icon>
-                            {{ 'WEIGHT.HIP' | translate }}
-                        </label>
-                        <input type="number" step="0.5" [value]="hip()" (input)="hip.set($any($event.target).value)"
-                            placeholder="cm" />
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-primary full-width" [disabled]="isSaving()">
-                    {{ isSaving() ? ('COMMON.LOADING' | translate) : ('COMMON.SAVE' | translate) }}
-                </button>
             </form>
-        </div>
+        </section>
+
         }
 
         <!-- Gráfico de Evolução -->
@@ -109,7 +152,7 @@
         </div>
 
         <div class="table-wrapper">
-            <table>
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>{{ 'WEIGHT.DATE' | translate }}</th>
@@ -125,22 +168,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (item of logs(); track item.id) {
+                    @for (log of logs(); track log.id) {
                     <tr>
-                        <td class="col-date"><strong>{{ item.date }}</strong></td>
-                        <td class="highlight-weight">{{ item.weight ? item.weight + ' kg' : '--' }}</td>
-                        <td class="highlight-imc">{{ item.imc ? item.imc : '--' }}</td>
-                        <td>{{ item.waist ? item.waist + ' cm' : '--' }}</td>
-                        <td>{{ item.hip ? item.hip + ' cm' : '--' }}</td>
-                        <td>{{ item.bust ? item.bust + ' cm' : '--' }}</td>
-                        <td>{{ item.left_thigh ? item.left_thigh + ' cm' : '--' }}</td>
-                        <td>{{ item.right_thigh ? item.right_thigh + ' cm' : '--' }}</td>
-                        <td>{{ item.left_arm ? item.left_arm + ' cm' : '--' }}</td>
-                        <td>{{ item.right_arm ? item.right_arm + ' cm' : '--' }}</td>
+                        <td>{{ formatDate(log.date) }}</td>
+                        <td><strong>{{ log.weight }} {{ 'COMMON.Kg' | translate }}</strong></td>
+                        <td>{{ log.imc || '--' }}</td>
+                        <td>{{ log.waist ? log.waist + ' cm' : '--' }}</td>
+                        <td>{{ log.hip ? log.hip + ' cm' : '--' }}</td>
+                        <td>{{ log.bust ? log.bust + ' cm' : '--' }}</td>
+                        <td>{{ log.left_thigh ? log.left_thigh + ' cm' : '--' }}</td>
+                        <td>{{ log.right_thigh ? log.right_thigh + ' cm' : '--' }}</td>
+                        <td>{{ log.left_arm ? log.left_arm + ' cm' : '--' }}</td>
+                        <td>{{ log.right_arm ? log.right_arm + ' cm' : '--' }}</td>
                     </tr>
                     } @empty {
                     <tr>
-                        <td colspan="10" class="empty-state">{{ 'COMMON.NOT_FOUND' | translate }}</td>
+                        <td colspan="10" class="empty-cell">{{ 'COMMON.NOT_FOUND' | translate }}</td>
                     </tr>
                     }
                 </tbody>

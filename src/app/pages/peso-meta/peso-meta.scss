@@ -292,3 +292,81 @@
         }
     }
 }
+
+.measurement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.form-scroll-wrapper {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-behavior: smooth;
+
+  /* Estilização da barra de rolagem */
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(75, 117, 255, 0.05);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-electric-blue);
+    border-radius: 10px;
+  }
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(75, 117, 255, 0.1);
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-olive);
+      white-space: nowrap;
+    }
+
+    input {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(75, 117, 255, 0.2);
+      font-size: 0.85rem;
+      outline: none;
+      background: #fff;
+
+      &:focus {
+        border-color: var(--color-electric-blue);
+      }
+
+      &.disabled-input {
+        background: rgba(0, 0, 0, 0.04);
+        color: #666;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}

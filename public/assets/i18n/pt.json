@@ -9,7 +9,8 @@
     "SUCCESS_SAVE": "Salvo com sucesso!",
     "ERROR_GENERIC": "Ocorreu um erro. Tente novamente.",
     "NOT_FOUND":"Nenhum registro encontrado.",
-    "HISTORY":"Histórico"
+    "HISTORY":"Histórico",
+    "Kg":"Kg"
   },
   "HEADER": {
     "BRAND_MAIN": "Kywi",
@@ -17,7 +18,8 @@
     "MENU_WEIGHT": "Peso & Meta",
     "MENU_DIARY": "Diário",
     "MENU_GYNO": "Saúde Gineco",
-    "LOGOUT_LOGIN": "Sair / Entrar"
+    "LOGOUT": "Sair",
+    "LOGIN": "Entrar"
   },
   "LOGIN": {
     "TITLE": "Bem-vinda ao kywi saúde",

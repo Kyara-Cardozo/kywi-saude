@@ -48,13 +48,15 @@ export class Login {
     if (error) {
       this.errorMessage.set('E-mail ou senha incorretos.');
     } else if (data.user) {
-      // O Signal isOwner já foi atualizado para true reativamente!
+      // Redireciona para Peso & Meta como Proprietária
       this.router.navigate(['/peso-meta']);
     }
   }
 
+  // Entrar como Visitante
   onAccessAsVisitor() {
     this.supabase.setVisitorMode();
+    // Redireciona para Peso & Meta como Visitante
     this.router.navigate(['/peso-meta']);
   }
 

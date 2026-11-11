@@ -1,8 +1,24 @@
-import { Injectable, NgZone, signal } from '@angular/core';
+import { computed, Injectable, NgZone, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
+import { async } from 'rxjs';
 
 const SUPABASE_URL = 'https://vzesjwasrnhobxqdwjxw.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_d3CiVK6aXFVt402B_uG1Xg_2qgaHi02';
+
+export interface WeightLogPayload {
+    date: string;
+    weight: number;
+    target_weight?: number | null;
+    imc?: number | null;
+    waist?: number | null;
+    hip?: number | null;
+    bust?: number | null;
+    left_thigh?: number | null;
+    right_thigh?: number | null;
+    left_arm?: number | null;
+    right_arm?: number | null;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -12,13 +28,19 @@ export class SupabaseService {
 
     // Signals reativos para controle de permissão
     isOwner = signal<boolean>(false);
+    isVisitor = signal<boolean>(false);
     isDoctorVerified = signal<boolean>(false);
     currentUser = signal<User | null>(null);
+    hasAccess = computed(() => this.isOwner() || this.isVisitor());
 
-    constructor(private ngZone: NgZone) {
+
+    constructor(
+        private ngZone: NgZone,
+        private router: Router
+    ) {
         this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Ouve atualizações de sessão (login, logout, refresh de página) dentro da zona do Angular
+        // Monitora a sessão do Supabase
         this.supabase.auth.onAuthStateChange((_event, session) => {
             this.updateUserState(session?.user || null);
         });
@@ -33,6 +55,9 @@ export class SupabaseService {
         this.ngZone.run(() => {
             this.currentUser.set(user);
             this.isOwner.set(!!user);
+            if (user) {
+                this.isVisitor.set(false);
+            }
         });
     }
 
@@ -52,29 +77,43 @@ export class SupabaseService {
 
     // Modo Visitante
     setVisitorMode() {
-        this.updateUserState(null);
         this.ngZone.run(() => {
+            this.isOwner.set(false);
+            this.isVisitor.set(true);
             this.isDoctorVerified.set(false);
+            this.currentUser.set(null);
         });
     }
 
     async logout() {
         await this.supabase.auth.signOut();
-        this.setVisitorMode();
+        this.ngZone.run(() => {
+            this.isOwner.set(false);
+            this.isVisitor.set(false);
+            this.isDoctorVerified.set(false);
+            this.currentUser.set(null);
+            this.router.navigate(['/login']);
+        });
     }
 
+    // Em src/app/services/supabase.service.ts
     async verifyDoctorCRM(crm: string, pin: string): Promise<boolean> {
-        const { data, error } = await this.supabase
-            .from('authorized_doctors')
-            .select('*')
-            .eq('crm', crm.trim())
-            .eq('access_pin', pin.trim())
-            .single();
+        try {
+            const { data, error } = await this.supabase
+                .from('authorized_doctors')
+                .select('*')
+                .ilike('crm', crm.trim()) // ilike ignora maiúsculas/minúsculas (ex: "367056-ba" funciona como "367056-BA")
+                .eq('access_pin', pin.trim())
+                .maybeSingle();
 
-        if (data && !error) {
-            this.ngZone.run(() => this.isDoctorVerified.set(true));
-            return true;
+            if (data && !error) {
+                this.ngZone.run(() => this.isDoctorVerified.set(true));
+                return true;
+            }
+        } catch (err) {
+            console.error('Erro na verificação do CRM:', err);
         }
+
         this.ngZone.run(() => this.isDoctorVerified.set(false));
         return false;
     }
@@ -87,13 +126,7 @@ export class SupabaseService {
             .order('date', { ascending: true });
     }
 
-    async addWeightLog(log: {
-        date: string;
-        weight: number;
-        target_weight?: number | null;
-        waist?: number | null;
-        hip?: number | null;
-    }) {
+    async addWeightLog(log: any) {
         return await this.supabase.from('weight_logs').insert([log]);
     }
 

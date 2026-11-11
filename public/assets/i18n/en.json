@@ -17,7 +17,8 @@
     "MENU_WEIGHT": "Weight & Goal",
     "MENU_DIARY": "Journal",
     "MENU_GYNO": "Gyno Health",
-    "LOGOUT_LOGIN": "Logout / Login"
+    "LOGOUT": "Logout",
+    "LOGIN": "Login"
   },
   "LOGIN": {
     "TITLE": "Welcome to kywi health",

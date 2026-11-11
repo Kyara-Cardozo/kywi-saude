@@ -8,11 +8,9 @@ import { ValidarCrm } from './pages/validar-crm/validar-crm';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
-  { path: 'peso-meta', component: PesoMeta },
-  { path: 'diario', component: Diario },
+  { path: 'peso-meta', component: PesoMeta, canActivate: [crmGuard] },
   { path: 'gineco', component: Gineco, canActivate: [crmGuard] },
-  { path: 'validar-crm', component: ValidarCrm},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

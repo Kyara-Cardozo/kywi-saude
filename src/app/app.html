@@ -20,22 +20,26 @@
         <span class="highlight">{{ 'HEADER.BRAND_SUB' | translate }}</span></span>
     </div>
 
-    <nav class="nav-links">
-      <a routerLink="/peso-meta" routerLinkActive="active" class="nav-btn">
-        <lucide-icon name="scale" class="ui-icon"></lucide-icon>
-        {{ 'HEADER.MENU_WEIGHT' | translate }}
-      </a>
-      <a routerLink="/diario" routerLinkActive="active" class="nav-btn">
-        <lucide-icon name="book-open" class="ui-icon"></lucide-icon>
-        {{ 'HEADER.MENU_DIARY' | translate }}
-      </a>
-      <a routerLink="/gineco" routerLinkActive="active" class="nav-btn gyno-btn">
-        <lucide-icon name="heart" class="ui-icon"></lucide-icon>
-        {{ 'HEADER.MENU_GYNO' | translate }}
-      </a>
-    </nav>
+    <!-- 1. O menu de navegação só é exibido se tiver acesso (Proprietária ou Visitante) -->
+    @if (supabase.hasAccess()) {
+      <nav class="nav-links">
+        <a routerLink="/peso-meta" routerLinkActive="active" class="nav-btn">
+          <lucide-icon name="scale" class="ui-icon"></lucide-icon>
+          {{ 'HEADER.MENU_WEIGHT' | translate }}
+        </a>
+        <a routerLink="/diario" routerLinkActive="active" class="nav-btn">
+          <lucide-icon name="book-open" class="ui-icon"></lucide-icon>
+          {{ 'HEADER.MENU_DIARY' | translate }}
+        </a>
+        <a routerLink="/gineco" routerLinkActive="active" class="nav-btn gyno-btn">
+          <lucide-icon name="heart" class="ui-icon"></lucide-icon>
+          {{ 'HEADER.MENU_GYNO' | translate }}
+        </a>
+      </nav>
+    }
 
     <div class="user-actions">
+      <!-- Seletor de Idioma -->
       <div class="lang-selector">
         <button class="lang-btn" [class.active]="i18n.currentLang() === 'pt'" (click)="switchLang('pt')">
           🇧🇷 PT
@@ -45,7 +49,20 @@
         </button>
       </div>
 
-      <a routerLink="/login" class="login-btn">{{ 'HEADER.LOGOUT_LOGIN' | translate: i18n.currentLang() }}</a>
+      <!-- 2. Selo de Perfil e Botão de Sair ou Entrar -->
+      @if (supabase.hasAccess()) {
+        <div class="session-badge">
+          <span class="badge" [class.owner]="supabase.isOwner()" [class.visitor]="supabase.isVisitor()">
+            {{ supabase.isOwner() ? 'Proprietária' : 'Visitante' }}
+          </span>
+          <button class="login-btn logout-btn" (click)="supabase.logout()">
+            <lucide-icon name="log-out" ></lucide-icon>
+            {{ 'HEADER.LOGOUT' | translate }}
+          </button>
+        </div>
+      } @else {
+        <a routerLink="/login" class="login-btn">{{ 'HEADER.LOGIN' | translate }}</a>
+      }
     </div>
   </div>
 </header>

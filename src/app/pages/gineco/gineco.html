@@ -1,1 +1,152 @@
-<p>gineco works!</p>
+<div class="page-container">
+
+    <!-- Modal de Validação para Visitantes -->
+    @if (showCrmModal()) {
+    <div class="modal-overlay">
+        <div class="modal-card cyber-card">
+            <div class="modal-header">
+                <lucide-icon name="shield-check" class="ui-icon lime-icon"></lucide-icon>
+                <h3>Acesso Médico Restrito</h3>
+            </div>
+
+            <p class="modal-info">
+                Esta área contém dados ginecológicos confidenciais. Digite seu CRM e o PIN autorizados pela
+                proprietária.
+            </p>
+
+            @if (crmError()) {
+            <div class="error-banner">
+                <lucide-icon name="alert-circle" class="ui-icon"></lucide-icon>
+                {{ crmError() }}
+            </div>
+            }
+
+            <form (ngSubmit)="onVerifyCrm()" class="crm-form">
+                <div class="form-group">
+                    <label for="crm">CRM (ex: 123456-BA)</label>
+                    <input type="text" id="crm" placeholder="123456-BA" [value]="crmInput()"
+                        (input)="crmInput.set($any($event.target).value)" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="pin">PIN de Segurança</label>
+                    <input type="password" id="pin" placeholder="••••" [value]="pinInput()"
+                        (input)="pinInput.set($any($event.target).value)" required />
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn-secondary" (click)="onCancelCrmModal()">
+                        Voltar para Peso & Meta
+                    </button>
+                    <button type="submit" class="btn-primary" [disabled]="isVerifying()">
+                        {{ isVerifying() ? 'Verificando...' : 'Entrar' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    }
+
+    <!-- Conteúdo Principal do Menu 3 -->
+    @if (!showCrmModal()) {
+    <header class="page-header">
+        <h2>Saúde Ginecológica 🩺</h2>
+        <p>Acompanhamento de miomas e sintomas corporais.</p>
+    </header>
+
+    <!-- Formulário de Adição (Apenas Proprietária) -->
+    @if (supabase.isOwner()) {
+    <section class="cyber-card add-card">
+        <h3>Registrar Avaliação / Sintomas</h3>
+
+        <form (ngSubmit)="onSaveGynoLog()" class="gyno-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="date">Data *</label>
+                    <input type="date" id="date" [value]="date()" (input)="date.set($any($event.target).value)"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="size">Tamanho do Mioma (mm) *</label>
+                    <input type="number" step="0.1" id="size" placeholder="ex: 18.5" [value]="fibroidSize()"
+                        (input)="fibroidSize.set($any($event.target).value)" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Localização</label>
+                    <select id="type" [value]="fibroidType()" (change)="fibroidType.set($any($event.target).value)">
+                        <option value="Intramural">Intramural</option>
+                        <option value="Subseroso">Subseroso</option>
+                        <option value="Submucoso">Submucoso</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bleeding">Fluxo de Sangramento</label>
+                    <select id="bleeding" [value]="bleedingIntensity()"
+                        (change)="bleedingIntensity.set($any($event.target).value)">
+                        <option value="Ausente">Ausente</option>
+                        <option value="Leve">Leve</option>
+                        <option value="Moderado">Moderado</option>
+                        <option value="Intenso">Intenso</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pain">Nível de Dor (1 a 5)</label>
+                    <input type="number" min="1" max="5" id="pain" [value]="painLevel()"
+                        (input)="painLevel.set($any($event.target).value)" />
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="notes">Observações</label>
+                    <input type="text" id="notes" placeholder="ex: Realizado exame USG transvaginal." [value]="notes()"
+                        (input)="notes.set($any($event.target).value)" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary" [disabled]="isSaving()">
+                    {{ isSaving() ? 'Salvando...' : 'Salvar Registro' }}
+                </button>
+            </div>
+        </form>
+    </section>
+    }
+
+    <!-- Histórico (Visível para Proprietária e Médico Autorizado) -->
+    <section class="cyber-card">
+        <h3>Histórico Ginecológico</h3>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tamanho (mm)</th>
+                    <th>Tipo</th>
+                    <th>Sangramento</th>
+                    <th>Nível de Dor</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (log of logs(); track log.id) {
+                <tr>
+                    <td>{{ formatDate(log.date) }}</td>
+                    <td><strong>{{ log.fibroid_size_mm }} mm</strong></td>
+                    <td>{{ log.fibroid_type }}</td>
+                    <td>{{ log.bleeding_intensity || '--' }}</td>
+                    <td>{{ log.pain_level ? log.pain_level + '/5' : '--' }}</td>
+                    <td>{{ log.notes || '--' }}</td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="6" class="empty-cell">Nenhum registro cadastrado.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    }
+</div>
